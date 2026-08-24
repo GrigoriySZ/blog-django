@@ -22,6 +22,6 @@ pip freeze > requirements.txt
 git add .
 git commit -m "chore: Initial project"
 git branch -M main
-git remote add {GIT_URL}
+git remote add origin {GIT_URL}
 git push -u origin main
 ```
