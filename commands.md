@@ -59,3 +59,10 @@ python manage.py createsuperuser
 python manage.py runserver
 Ctrl+C 
 ```
+
+12. Сохраняем регистрацию модели Post в панели администратора
+```
+git add .
+git commit -m "feat: register Post in admin panel"
+```
+
