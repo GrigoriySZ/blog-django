@@ -97,7 +97,7 @@ def delete_post(request, post_id):
     comments = post.comments.all().order_by('created_at')
     form = CommentForm()
     context = {
-        'post': post,
+        'posts': post,
         'comments': comments,
         'form': form,
         'delete_confirm': True,  # Флаг для подтверждения кнопки

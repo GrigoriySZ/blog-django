@@ -26,9 +26,8 @@ class Post(models.Model):
     author = models.ForeignKey(
         User, 
         on_delete=models.CASCADE,
-        verbose_name='Автор',
-        # user.posts.all()
-        related_name='posts',
+        verbose_name='Автор', 
+        related_name='posts', # user.posts.all()
         null=True,  # Может иметь значение null
         blank=True  # Может быть пустым
     )
