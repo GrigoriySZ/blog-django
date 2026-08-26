@@ -28,7 +28,7 @@ class CommentForm(forms.ModelForm):
             'text': forms.Textarea(attrs={
                 'class': 'form-input',
                 'placeholder': 'Напишите текст комментария...'
-            })
+            }),
         }
         labels = {
             'text': 'Текст'
