@@ -5,7 +5,7 @@ class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
-        widgest = {
+        widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-input',
                 'placeholder': 'Введите заголовок...'
@@ -20,7 +20,7 @@ class PostCreateForm(forms.ModelForm):
             'content': 'Содержание'
         }
 
-class CommentCreateForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['text']
