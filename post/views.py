@@ -13,7 +13,7 @@ def post_list(request):
     return render(request, 'post/post_list.html', context)
 
 
-def post_detail(request, post_id):
+def post_details(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     comments = post.comments.all().order_by('-created_at')
     if request.method == 'POST':
@@ -29,7 +29,7 @@ def post_detail(request, post_id):
             comment.author = request.user
             comment.save()
             messages.success(request, 'Комментарий добавлен')
-            return redirect('post:post_detail', post_id=post.id)
+            return redirect('post:post_details', post_id=post.id)
         else:
             messages.error(request, 'Ошибка при добавлении комментария')
     else: 
@@ -52,7 +52,7 @@ def create_post(request):
             post.author = request.user
             post.save()
             messages.success(request, 'Пост создан')
-            return redirect('post:post_detail', post_id=post.id)
+            return redirect('post:post_details', post_id=post.id)
         else:
             messages.error(request, 'Ошибка в форме')
     else:
@@ -72,7 +72,7 @@ def edit_post(request, post_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Пост обновлен')
-            return redirect('post:post_detail', post_id=post.id)
+            return redirect('post:post_details', post_id=post.id)
         else:
             messages.error(request, 'Ошибка в форме')
     else: 
@@ -93,7 +93,7 @@ def delete_post(request, post_id):
             messages.success(request, 'Пост удален')
             return redirect('post:post_list')
         else: 
-            return redirect('post:post_detail', post_id=post.id)
+            return redirect('post:post_details', post_id=post.id)
     comments = post.comments.all().order_by('created_at')
     form = CommentForm()
     context = {
@@ -103,4 +103,4 @@ def delete_post(request, post_id):
         'delete_confirm': True,  # Флаг для подтверждения кнопки
         'page_title': f'Удаление {post.title}',
     }
-    return render(request, 'post/post_detail.html', context)
+    return render(request, 'post/post_details.html', context)

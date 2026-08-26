@@ -8,11 +8,12 @@
             <article>
                 <h2>
                     <!-- post.id - передаем значение объекта после URL -->
-                    <a href="{% url 'post:post_detail' post.id %}" >
+                    <a href="{% url 'post:post_details' post.id %}" >
                         {{ post.title }}
                     </a>
                 </h2>
                 <div>
+                    {{ post.author.username }}
                     {{ post.created_at|date:"d.m.Y H:i" }}
                 </div>
                 <div>
