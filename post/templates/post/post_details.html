@@ -31,15 +31,15 @@
                 <p>Вы действительно хотите удалить пост?</p>
                 <form method="post" action="{% url 'post:delete_post' post.id %}">
                     {% csrf_token %}
-                    <button type="submit">Удалить</button>
-                    <a href="{% url 'post:post_details' post.id %}"></a>
+                    <button type="submit" name="confirm_delete">Да, удалить</button>
+                    <a href="{% url 'post:post_detail' post.id %}">Отмена</a>
                 </form>
             </div>
         {% endif %}
     </article>
     <section>
         <h2>Комментарии ({{ comments.count }})</h2>
-        {% if user.is_authentificated %}
+        {% if user.is_authenticated %}
             <h3>Добавить комментарий</h3>
             <form method="post">
                 {% csrf_token %}

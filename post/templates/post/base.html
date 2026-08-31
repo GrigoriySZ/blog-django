@@ -11,7 +11,7 @@
             <a href="{% url 'post:post_list' %}">Мой блог</a>
         </h1>
         <nav>
-            {% if user.is_authentificated %} 
+            {% if user.is_authenticated %} 
                 <span>{{ user.username }}</span>
                 <a href="{% url 'post:create_post' %}">
                     Создать пост
