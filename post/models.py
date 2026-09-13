@@ -35,6 +35,18 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def can_edit(self, user):
+        if not user.is_authenticated:
+            return False
+        # Автор или модератор
+        return user == self.author or (hasattr(user, 'profile') and user.profile.is_moderator)
+
+    def can_delete(self, user):
+        if not user.is_authenticated:
+            return False
+        # Автор или модератор
+        return user == self.author or (hasattr(user, 'profile') and user.profile.is_moderator)
+
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
@@ -62,6 +74,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Комментарий от {self.author} к "{self.post.title}"'
+
+    def can_delete(self, user):
+        if not user.is_authenticated:
+            return False
+        # Автор или модератов
+        return user == self.author or (hasattr(user, 'profile') and user.profile.is_moderator)
 
     class Meta:
         verbose_name = 'Комментарий'
