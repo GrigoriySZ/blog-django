@@ -66,7 +66,7 @@ def create_post(request):
 
 @login_required
 def edit_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id, author=request.user)
+    post = get_object_or_404(Post, pk=post_id)
     if not post.can_edit(request.user):
         messages.error(request, 'Нет прав для редактирования')
         return redirect('post:post_details', post_id=post.id)
@@ -91,7 +91,7 @@ def edit_post(request, post_id):
 
 @login_required
 def delete_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id, author=request.user)
+    post = get_object_or_404(Post, pk=post_id)
     
     if not post.can_delete(request.user):
         raise PermissionDenied('У вас нет прав на удаление')
@@ -106,10 +106,10 @@ def delete_post(request, post_id):
     comments = post.comments.all().order_by('created_at')
     form = CommentForm()
     context = {
-        'posts': post,
+        'post': post,
         'comments': comments,
         'form': form,
-        'delete_confirm': True,  # Флаг для подтверждения кнопки
+        'delete_confirm': True,
         'page_title': f'Удаление {post.title}',
     }
     return render(request, 'post/post_details.html', context)

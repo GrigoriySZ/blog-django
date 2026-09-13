@@ -17,13 +17,17 @@
         <div>
             {{ post.content }}
         </div>
-        {% if user.is_authenticated and (post.can_edit or post.can_delete) %} 
-            <a href="{% url 'post:edit_post' post.id %}">
-                Редактировать
-            </a>
-            <a href="{% url 'post:delete_post' post.id %}">
-                Удалить
-            </a>
+        {% if user.is_authenticated %}
+            {% if post.author == user or user.profile.is_moderator %}
+                <a href="{% url 'post:edit_post' post.id %}">
+                    Редактировать
+                </a>
+            {% endif %}
+            {% if post.author == user or user.profile.is_moderator %}
+                <a href="{% url 'post:delete_post' post.id %}">
+                    Удалить
+                </a>
+            {% endif %}
         {% endif %}
 
         {% if delete_confirm %}
@@ -32,7 +36,7 @@
                 <form method="post" action="{% url 'post:delete_post' post.id %}">
                     {% csrf_token %}
                     <button type="submit" name="confirm_delete">Да, удалить</button>
-                    <a href="{% url 'post:post_detail' post.id %}">Отмена</a>
+                    <a href="{% url 'post:post_details' post.id %}">Отмена</a>
                 </form>
             </div>
         {% endif %}
@@ -51,10 +55,12 @@
             {% if comments %}
                 {% for comment in comments %}
                     {{ comment.created_at }} {{ comment.author }}
-                    {% if user.is_authenticated and comment.can_delete %}
-                        <a href="{% url 'post:delete_comment' comment.id %}">
-                            Удалить комментарий
-                        </a>
+                    {% if user.is_authenticated %}
+                        {% if comment.author == user or post.author == user or user.profile.is_moderator %}
+                            <a href="{% url 'post:delete_comment' comment.id %}">
+                                Удалить комментарий
+                            </a>
+                        {% endif %}
                     {% endif %}
                     <p>{{ comment.text }}</p>
                 {% endfor %}
