@@ -23,7 +23,7 @@ class Profile(models.Model):
         default=False,
         verbose_name='Заблокирован'
     )
-    blocked_util = models.DateTimeField(
+    blocked_until = models.DateTimeField(
         blank=True,
         null=True,
         verbose_name='Заблокирован до'
