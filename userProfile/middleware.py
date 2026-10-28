@@ -10,7 +10,7 @@ class BlockCheckMiddleware:
     def __call__(self, request):
         if request.user.is_authenticated:
             profile = getattr(request.user, 'profile', None)
-            if profile and profile.is_curently_blocked():
+            if profile and profile.is_currently_blocked():
                 if profile.blocked_until:
                     date_str = profile.blocked_until.strftime(
                                             '%d.%m.%Y %H:%M'

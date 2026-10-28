@@ -36,9 +36,9 @@ class Profile(models.Model):
     def is_currently_blocked(self):
         if not self.is_blocked:
             return False
-        if self.blocked_util and timezone.now() > self.blocked_util:
+        if self.blocked_until and timezone.now() > self.blocked_until:
             self.is_blocked = False
-            self.blocked_util = None
+            self.blocked_until = None
             self.save()
             return False
         return True
